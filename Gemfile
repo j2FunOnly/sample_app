@@ -15,12 +15,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug'
-  gem 'sqlite3', '~> 1.3.13'
-end
-
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
@@ -28,6 +22,19 @@ group :development do
   gem 'spring'
 end
 
+group :test do
+  gem 'selenium-webdriver', '2.35.1'
+  gem 'capybara', '2.1.0'
+end
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug'
+  gem 'sqlite3', '1.3.13'
+  gem 'rspec-rails', '2.13.1'
+end
+
 group :production do
-  gem 'pg', '~> 0.21.0'
+  gem 'pg', '0.21.0'
+  gem 'rails_12factor', '0.0.2'
 end
