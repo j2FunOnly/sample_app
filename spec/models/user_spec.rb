@@ -43,7 +43,7 @@ describe User do
     describe 'format' do
       it 'invalid' do
         addresses = %w(user@foo,com user_at_foo.com us.er@foo. user@fo_o.#
-                       user@fo+o.com)
+                       user@fo+o.com user@foo..com)
         addresses.each do |address|
           user.email = address
           expect(user).not_to be_valid
