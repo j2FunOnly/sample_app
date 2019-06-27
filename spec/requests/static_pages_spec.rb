@@ -51,8 +51,8 @@ describe 'StaticPages' do
     should have_selector('h1', text: 'Contact')
     click_link 'Home'
     click_link 'Sign up now!'
-    should have_selector('h1', 'Sign Up')
+    should have_selector('h1', text: 'Sign Up')
     click_link 'Sample App'
-    should have_selector('h1', 'Sample App')
+    should have_selector('h1', text: 'Sample App')
   end
 end
