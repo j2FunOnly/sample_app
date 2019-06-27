@@ -18,6 +18,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'puma', '~> 3.11'
 gem 'pg', '0.21.0'
 gem 'rake', '< 11.0'
+gem 'bootstrap-sass', '~> 2.3.2'
 
 group :development do
   # Access an IRB console on exception pages or by using <%= console %> in views
