@@ -1,5 +1,7 @@
 @import 'bootstrap';
 
+$grayLighter: #eaeaea;
+
 html {
   overflow-y: scroll;
 }
@@ -37,6 +39,29 @@ section {
   overflow: auto;
 }
 
+aside {
+  section {
+    padding: 10px 0;
+    border-top: 1px solid $grayLighter;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0;
+    }
+  }
+}
+
 textarea {
   resize: vertical;
 }
@@ -64,10 +89,39 @@ textarea {
   }
 }
 
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color: #f00;
+  ul {
+    list-style: none;
+    margin: 0 0 18px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .control-group;
+  @extend .error;
+}
+
 footer {
   margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid #eaeaea;
+  border-top: 1px solid $grayLighter;
   color: $grayLight;
   a {
     color: #555;
@@ -86,4 +140,11 @@ footer {
       margin-left: 10px;
     }
   }
+}
+
+.debug_dump {
+  clear: both;
+  width: 100%;
+  margin-top: 45px;
+  box-sizing: border-box;
 }
