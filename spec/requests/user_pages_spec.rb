@@ -3,6 +3,24 @@ require 'spec_helper'
 describe 'User pages' do
   subject { page }
 
+  describe 'index' do
+    before do
+      sign_in FactoryGirl.create(:user)
+      FactoryGirl.create(:user, name: 'Foo', email: 'foo@example.com')
+      FactoryGirl.create(:user, name: 'Bar', email: 'bar@example.com')
+      visit users_path
+    end
+
+    it { should have_title('All users') }
+    it { should have_content('All users') }
+
+    it 'list each user' do
+      User.all.each do |user|
+        should have_selector('li', text: user.name)
+      end
+    end
+  end
+
   describe 'signup page' do
     before { visit signup_path }
     let(:submit) { 'Create my account' }
@@ -52,5 +70,45 @@ describe 'User pages' do
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+  end
+
+  describe 'edit' do
+    let(:user) { FactoryGirl.create :user }
+
+    before do
+      sign_in user
+      visit edit_user_path(user)
+    end
+
+    describe 'page' do
+      it { should have_content('Update your profile') }
+      it { should have_title('Edit user') }
+      it { should have_link('change', href: 'https://gravatar.com/emails') }
+    end
+
+    describe 'with valid information' do
+      let(:new_name) { 'New Name' }
+      let(:new_email) { 'new@example.com' }
+
+      before do
+        fill_in 'Name', with: new_name
+        fill_in 'Email', with: new_email
+        fill_in 'Password', with: user.password
+        fill_in 'Password confirmation', with: user.password
+        click_button 'Update my account'
+      end
+
+      it { should have_title(new_name) }
+      it { should have_selector('div.alert.alert-success') }
+      it { should have_link('Sign out', href: signout_path) }
+      specify { expect(user.reload.name).to eq(new_name) }
+      specify { expect(user.reload.email).to eq(new_email) }
+    end
+
+    describe 'with invalid information' do
+      before { click_button 'Update my account' }
+
+      it { should have_content('error') }
+    end
   end
 end
