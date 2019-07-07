@@ -5,7 +5,8 @@ namespace :db do
       name: 'Example User',
       email: 'example@example.com',
       password: 'asdfqwerty',
-      password_confirmation: 'asdfqwerty'
+      password_confirmation: 'asdfqwerty',
+      admin: true
     )
 
     99.times do |n|
