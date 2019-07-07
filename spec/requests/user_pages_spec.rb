@@ -33,7 +33,7 @@ describe 'User pages' do
       describe 'as an admin user' do
         let(:admin) { FactoryGirl.create :admin }
 
-        before do
+        before(:each) do
           sign_in admin
           visit users_path
         end
@@ -92,6 +92,28 @@ describe 'User pages' do
         it { should have_link('Sign out') }
       end
     end
+
+    describe 'for signed in users' do
+      let(:user) { FactoryGirl.create(:user) }
+
+      describe 'redirect to root path' do
+        before do
+          sign_in user
+          visit signup_path
+        end
+
+        it { should have_title('Home') }
+      end
+
+      describe 'submitting to Users#create action' do
+        before do
+          sign_in user, no_capybara: true
+          post users_path
+        end
+
+        specify { expect(response).to redirect_to(root_path) }
+      end
+    end
   end
 
   describe 'Profile page' do
@@ -139,6 +161,25 @@ describe 'User pages' do
       before { click_button 'Update my account' }
 
       it { should have_content('error') }
+    end
+
+    describe 'forbidden attributes' do
+      let(:params) do
+        {
+          user: {
+            password: user.password,
+            password_confirmation: user.password,
+            admin: true
+          }
+        }
+      end
+
+      before do
+        sign_in user, no_capybara: true
+        patch user_path(user), params
+      end
+
+      specify { expect(user.reload).not_to be_admin }
     end
   end
 end
