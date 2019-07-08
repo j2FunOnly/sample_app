@@ -27,5 +27,17 @@ describe "Micropost Pages" do
         expect { click_button 'Post' }.to change(Micropost, :count).by(1)
       end
     end
+
+    describe 'micropost desctruction' do
+      before { FactoryGirl.create(:micropost, user: user) }
+
+      describe 'as a correct user' do
+        before { visit root_path }
+
+        it 'delete a micropost' do
+          expect { click_link 'delete' }.to change(Micropost, :count).by(-1)
+        end
+      end
+    end
   end
 end
