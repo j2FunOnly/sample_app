@@ -31,6 +31,24 @@ describe 'StaticPages' do
           expect(page).to have_selector("li#micropost_#{item.id}", text: item.content)
         end
       end
+
+      it 'should render microposts count' do
+        microposts_count = 'micropost'.pluralize(user.microposts.count)
+
+        expect(page).to have_selector('aside', text: microposts_count)
+      end
+
+      describe 'render pagination div' do
+        before do
+          30.times do
+            user.microposts.create(FactoryGirl.attributes_for(:micropost))
+          end
+
+          visit root_path
+        end
+
+        it { should have_selector('ol.microposts + div.pagination') }
+      end
     end
   end
 
