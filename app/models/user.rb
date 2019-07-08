@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  has_many :microposts
+  has_many :microposts, dependent: :destroy
 
   validates :name, presence: true, length: { minimum: 3, maximum: 50 }
   EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z])*\.[a-z]+\z/i

@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe User do
   subject { user }
+
   let(:user) do
     User.new(name: 'test name', email: 'test@example.com',
              password: '123456', password_confirmation: '123456')
@@ -126,5 +127,31 @@ describe User do
   describe 'remember_token' do
     before { user.save }
     its(:remember_token) { should_not be_blank }
+  end
+
+  describe 'microposts association' do
+    before { user.save }
+
+    let!(:older_post) do
+      FactoryGirl.create(:micropost, user: user, created_at: 1.day.ago)
+    end
+    let!(:newer_post) do
+      FactoryGirl.create(:micropost, user: user, created_at: 1.hour.ago)
+    end
+
+    it 'microposts order' do
+      expect(user.microposts.to_a).to eq([newer_post, older_post])
+    end
+
+    it 'destroy associated posts when user destroyed' do
+      posts = user.microposts.to_a
+      user.destroy
+
+      expect(posts).not_to be_empty
+
+      posts.each do |post|
+        expect(Micropost.where(id: post.id)).to be_empty
+      end
+    end
   end
 end
