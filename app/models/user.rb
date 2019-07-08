@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def feed
+    Micropost.where(user: self)
+  end
+
   private
 
   def downcase_email!
