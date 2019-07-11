@@ -4,6 +4,7 @@ charactersLeft = () ->
   $charsLeft = $('.characters-left span')
 
   () ->
+    return if !$content.length
     $charsLeft.text(MAX_LENGTH - $content.val().trim().length)
 
 $(document).on 'turbolinks:load', () ->
