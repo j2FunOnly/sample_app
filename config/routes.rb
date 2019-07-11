@@ -6,7 +6,12 @@ Rails.application.routes.draw do
   get '/about', to: 'static_pages#about', as: :about
   get '/contact', to: 'static_pages#contact'
 
-  resources :users
+  resources :users do
+    member do
+      get :following, :followers
+    end
+  end
+
   get '/signup', to: 'users#new'
 
   resources :sessions, only: [:new, :create, :destroy]
@@ -14,4 +19,5 @@ Rails.application.routes.draw do
   delete '/signout', to: 'sessions#destroy'
 
   resources :microposts, only: [:create, :destroy]
+  resources :relationships, only: [:create, :destroy]
 end
