@@ -17,7 +17,7 @@ gem 'bcrypt', '~> 3.1.7'
 
 gem 'puma', '~> 3.11'
 gem 'pg', '0.21.0'
-gem 'rake', '< 11.0'
+gem 'rake', '< 13.0'
 gem 'bootstrap-sass', '~> 2.3.2'
 gem 'faker', '~> 1.1'
 gem 'will_paginate', '~> 3.0.4'
