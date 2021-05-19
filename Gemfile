@@ -15,7 +15,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use ActiveModel has_secure_password
 gem 'bcrypt', '~> 3.1.7'
 
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 4.3'
 gem 'pg', '0.21.0'
 gem 'rake', '< 11.0'
 gem 'bootstrap-sass', '~> 2.3.2'
